@@ -54,7 +54,7 @@ RUN cargo install --all-features fibertools-rs@${FIBERTOOLS_VERSION}
 RUN pip install --upgrade pip
 RUN conda install -n base -c conda-forge mamba
 RUN mamba create -c conda-forge -c bioconda -n snakemake 'snakemake>=8.4'
-RUN /opt/conda/envs/snakemake/bin/pip install snakemake-executor-plugin-cluster-generic
+RUN /opt/conda/envs/snakemake/bin/pip install snakemake-executor-plugin-cluster-generic snakemake-executor-plugin-lsf
 
 
 # entrypoint is the wrapper script to add conda env to path
