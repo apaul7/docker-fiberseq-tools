@@ -22,7 +22,7 @@ RUN apt-get update \
 WORKDIR /lib/kent/
 RUN rsync -azvP rsync://hgdownload.soe.ucsc.edu/genome/admin/exe/linux.x86_64/ .
 
-ENV CARGO_HOME /lib/cargo
+ENV CARGO_HOME=/lib/cargo
 WORKDIR /tmp
 RUN wget https://static.rust-lang.org/dist/rust-1.75.0-x86_64-unknown-linux-gnu.tar.gz \
   && tar -zxvf rust-1.75.0-x86_64-unknown-linux-gnu.tar.gz \
@@ -32,17 +32,17 @@ RUN wget https://static.rust-lang.org/dist/rust-1.75.0-x86_64-unknown-linux-gnu.
   && rm -rf /tmp/rust-1.75.0-x86_64-unknown-linux-gnu /tmp/rust-1.75.0-x86_64-unknown-linux-gnu.tar.gz
 
 WORKDIR /lib/
-ENV PYTORCH_VERSION "2.2.0"
+ENV PYTORCH_VERSION="2.2.0"
 RUN wget  https://download.pytorch.org/libtorch/cu118/libtorch-shared-with-deps-${PYTORCH_VERSION}%2Bcu118.zip \
   && unzip libtorch-shared-with-deps-${PYTORCH_VERSION}+cu118.zip \
   && rm libtorch-shared-with-deps-${PYTORCH_VERSION}+cu118.zip
 
-ENV LIBTORCH_CXX11_ABI 0
-ENV LIBTORCH /lib/libtorch
-ENV LD_LIBRARY_PATH ${LIBTORCH}/lib:$LD_LIBRARY_PATH
-ENV DYLD_LIBRARY_PATH ${LIBTORCH}/lib:$LD_LIBRARY_PATH
+ENV LIBTORCH_CXX11_ABI=0
+ENV LIBTORCH=/lib/libtorch
+ENV LD_LIBRARY_PATH=${LIBTORCH}/lib:$LD_LIBRARY_PATH
+ENV DYLD_LIBRARY_PATH=${LIBTORCH}/lib:$LD_LIBRARY_PATH
 
-ENV FIBERTOOLS_VERSION="0.4.2"
+ENV FIBERTOOLS_VERSION="0.5.3"
 RUN cargo install --all-features fibertools-rs@${FIBERTOOLS_VERSION}
 
 #WORKDIR /git
