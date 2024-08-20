@@ -56,6 +56,11 @@ RUN conda install -n base -c conda-forge mamba
 RUN mamba create -c conda-forge -c bioconda -n snakemake 'snakemake>=8.4'
 RUN /opt/conda/envs/snakemake/bin/pip install snakemake-executor-plugin-cluster-generic snakemake-executor-plugin-lsf
 
+#fiberseq qc
+RUN git clone https://github.com/fiberseq/fiberseq-qc.git \
+  && cd fiberseq-qc \
+  && conda create -n fiberseq-qc \
+  && mamba env update -n fiberseq-qc --file env/qc.yaml
 
 # entrypoint is the wrapper script to add conda env to path
 WORKDIR /usr/local/bin/
