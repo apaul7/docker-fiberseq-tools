@@ -45,18 +45,13 @@ ENV DYLD_LIBRARY_PATH=${LIBTORCH}/lib:$LD_LIBRARY_PATH
 ENV FIBERTOOLS_VERSION="0.5.3"
 RUN cargo install --all-features fibertools-rs@${FIBERTOOLS_VERSION}
 
-#WORKDIR /git
-#RUN git clone https://github.com/fiberseq/fiberseq-qc.git \
-#  && cd fiberseq-qc \
-#  && conda create -n fiberseq-qc \
-#  && conda env update -n fiberseq-qc --file env/qc.yaml
-
 RUN pip install --upgrade pip
 RUN conda install -n base -c conda-forge mamba
 RUN mamba create -c conda-forge -c bioconda -n snakemake 'snakemake>=8.4'
 RUN /opt/conda/envs/snakemake/bin/pip install snakemake-executor-plugin-cluster-generic snakemake-executor-plugin-lsf
 
 #fiberseq qc
+WORKDIR /git
 RUN git clone https://github.com/fiberseq/fiberseq-qc.git \
   && cd fiberseq-qc \
   && conda create -n fiberseq-qc \
